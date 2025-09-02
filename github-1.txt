@@ -1,0 +1,30 @@
+import streamlit as st
+from transformers import pipeline
+@st.cache_resource
+def load_model():
+    return pipeline("sentiment-analysis")
+nlp = load_model()
+st.set_page_config(page_title="SentimentSense", page_icon="😊", layout="centered")
+st.title("📊 SentimentSense: NLP Powered Sentiment Analysis")
+st.write("Type your sentence below and find out if it's Positive, Negative, or Neutral!")
+user_input = st.text_area("✍️ Enter your text here:")
+
+if st.button("Analyze Sentiment"):
+    if user_input.strip():
+        with st.spinner("Analyzing..."):
+            result = nlp(user_input)[0]
+            st.success(f"**Sentiment:** {result['label']}  \n**Confidence:** {result['score']:.2f}")
+    else:
+        st.warning("⚠️ Please enter some text first.")
+streamlit
+transformers
+torch
+This project is a **Streamlit web app** that performs **sentiment analysis** using Hugging Face's Transformers.
+- Simple and interactive UI built with **Streamlit**
+- Powered by **Hugging Face Transformers**
+- Analyzes text to classify sentiment as **Positive, Negative, or Neutral**
+- Easy to deploy and run on **Streamlit Cloud**
+1. Clone this repo:
+   ```bash
+   git clone https://github.com/your-username/sentiment-analysis-app.git
+   cd sentiment-analysis-app
